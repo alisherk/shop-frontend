@@ -1,0 +1,37 @@
+/*  changing the default active bottom border of materialize input-field */
+ .input-field input:focus + label {
+  color: rgb(106, 104, 207) !important;
+}
+
+.input-field input:focus {
+  border-bottom: 1px solid rgb(106, 104, 207) !important;
+  box-shadow: 0 1px 0 0 rgb(106, 104, 207) !important;
+} 
+
+#toast-container .toast {
+  background-color: #f13434;
+}
+
+/*adjust the bottom border of tabs */
+.tabs .indicator {
+  background-color: whitesmoke !important;
+}
+.tabs {
+  overflow: hidden !important;
+}
+
+/*adjust the height of order confirmation modal */
+#confirmationmodal.modal {
+  width: 60% !important;
+  height: 50% !important;
+}
+
+/* adjusting the filter icon for search input in brands component  */
+.input-field .postfix {
+  position: absolute;
+  width: 1rem;
+  right: 10px;
+  margin: 12px auto;
+  font-size: 2rem;
+  cursor: pointer;
+}

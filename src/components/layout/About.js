@@ -32,7 +32,7 @@ function About() {
     }
     const res = await strapi.request('POST', '/email', {
       data: {
-        to: 'alisherkabil@gmail.com',
+        to: 'alisherkabildjanov@yahoo.com',
         subject: `email from ${name}`,
         text: `you got new email`,
         html: `<p> ${message} </p> <p> customer can be contacted at ${email} </p>`

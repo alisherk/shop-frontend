@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Strapi from 'strapi-sdk-javascript/build/main';
-import { setToken } from '../utils';
+import { setToken, validatePasswordStrength } from '../utils';
 import { withRouter } from 'react-router-dom';
 import M from 'materialize-css';
 
@@ -8,6 +8,7 @@ const apiUrl = process.env.REACT_APP_API_URL;
 const strapi = new Strapi(apiUrl);
 
 class Register extends Component {
+
   state = {
     username: '',
     email: '',
@@ -25,9 +26,10 @@ class Register extends Component {
     if (this.IsFormEmpty(this.state)) {
       return M.toast({html: 'Fill in all fields', classes: 'rounded' }, 3000);
     }
-    if (!this.validatePasswordStrength(password)){
-      return M.toast({html: 'Password must be 6 characters long with one digit & uppercase', classes: 'rounded' }, 3000);
-    }
+    if (!validatePasswordStrength(password)) {
+       return M.toast({ html: 'Password must have 6 characters including a digit and uppercase letter', classes: 'rounded' }, 3000);
+    }; 
+
     const authmodal = document.getElementById('authmodal');
     const instance = M.Modal.getInstance(authmodal);
     try {
@@ -53,12 +55,6 @@ class Register extends Component {
   IsFormEmpty = ({ username, email, password }) => {
     return !username || !email || !password;  
   };
-
-  //ensure password is at least 6 characters with one uppercase and one digit
-  validatePasswordStrength = password => {
-    const reg = /(?=.*[\d])(?=.*[A-Z])[A-Za-z\d]{6,}$/;
-    return reg.test(password); 
-  }
 
   render() {
     return (

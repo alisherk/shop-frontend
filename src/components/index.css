@@ -26,12 +26,13 @@
   height: 50% !important;
 }
 
-/* adjusting the filter icon for search input in brands component  */
-.input-field .postfix {
-  position: absolute;
-  width: 1rem;
-  right: 10px;
-  margin: 12px auto;
-  font-size: 2rem;
-  cursor: pointer;
+/* adjust spans next to checkboxes in the About component */
+#customer-choice ul {
+  display: flex;
 }
+
+#customer-choice span {
+   margin: 6px 10px;
+}
+
+

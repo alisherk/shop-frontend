@@ -1,13 +1,15 @@
 import React from 'react';
 import { calculatePrice } from '../utils/index';
+import { useSelector } from 'react-redux';
 
 function ConfirmationModal({ cartItems, handleSubmitOrder, isProcessingOrder }) {
+
+  const cart = useSelector(state => state.cart)
+
   const output = cartItems ? (
     <div>
       <h4 className='center'>
-        {cartItems.length === 1
-          ? `You have ${cartItems.length} item`
-          : `You have ${cartItems.length} items`}
+         {cart === 1 ? <span> You have {cart} item </span> : <span> You have {cart} items </span> }
       </h4>
       {cartItems.map(item => {
         return (

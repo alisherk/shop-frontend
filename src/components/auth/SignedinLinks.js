@@ -9,7 +9,11 @@ const SignedinLinks = ({ handleSignOut }) => {
     if (cart > 0)
       return (
         <span
-          style={{ position: 'relative', margin: '18px auto', fontSize:'15px' }}
+          style={{
+            position: 'relative',
+            margin: '18px auto',
+            fontSize: '15px'
+          }}
           className='badge red white-text new'
         >
           {cart}
@@ -25,8 +29,10 @@ const SignedinLinks = ({ handleSignOut }) => {
             Paul's
             <i className='material-icons'>store</i>
           </NavLink>
+
           <ul id='nav-mobile' className='right'>
             <li>
+              {/*eslint-disable-next-line*/}
               <a className='btn-floating' onClick={handleSignOut}>
                 <i className='material-icons'> exit_to_app </i>
               </a>

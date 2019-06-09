@@ -9,18 +9,9 @@ import Items from './layout/Items';
 import Brands from './layout/Brands';
 import AuthModal from './auth/AuthModal';
 import Checkout from './layout/Checkout';
-
-/* const PrivateRoute = ({ component: Component, ...rest }) => (
-  <Route {...rest} render={props => (
-      getToken() !== null ? 
-      <Component {...props} /> : <Redirect to={{
-        pathname: '/', 
-        state: { from: props.location}
-      }}/>
-  )} />
-);  */
-
-const Home = () => <h1> About us </h1>;
+import ForgotPassword from './auth/ForgotPassword';
+import ResetPassword from './auth/ResetPassword';
+import NotFound from './layout/404';
 
 function App() {
   return (
@@ -30,8 +21,10 @@ function App() {
         <AuthModal />
         <Switch>
           <Route exact path='/' component={Brands} />
-          <Route path='/about' component={Home} />
           <Route path='/checkout' component={Checkout} />
+          <Route path='/forgotpass' component={ForgotPassword} />
+          <Route path='/resetpass' component={ResetPassword} /> 
+          <Route path='*' component={NotFound} /> 
           <Route path='/:id' component={Items} />
         </Switch>
       </Fragment>

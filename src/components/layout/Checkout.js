@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { getCart, setCart, calculatePrice, clearCart, calculateAmount } from '../utils/index';
-import { Elements, StripeProvider, CardElement, injectStripe } from 'react-stripe-elements';
+import { getCart, setCart, calculatePrice, clearCart, calculateAmount} from '../utils/index';
+import { Elements, StripeProvider, CardElement, injectStripe} from 'react-stripe-elements';
 import requireAuth from '../auth/requireAuth';
 import Strapi from 'strapi-sdk-javascript/build/main';
 import M from 'materialize-css';
@@ -8,13 +8,12 @@ import ConfirmationModal from './ConfirmationModal';
 import { useDispatch } from 'react-redux';
 import { setCartCount } from '../../store/actions';
 
-
 //get server uri from env variables and init a new strapi object
 const apiUrl = process.env.REACT_APP_API_URL;
 const strapi = new Strapi(apiUrl);
 
 function _CheckoutForm(props) {
-  
+
   const [address, setAddress] = useState('');
   const [postalCode, setPostalCode] = useState('');
   const [city, setCity] = useState('');
@@ -26,7 +25,7 @@ function _CheckoutForm(props) {
   useEffect(() => {
     setCartItems(getCart());
   }, []);
-  
+
   //get access to dispatch function to dispatch action to cart reduce in store
   const dispatch = useDispatch();
 
@@ -35,7 +34,7 @@ function _CheckoutForm(props) {
     if (!address || !postalCode || !city || !email || cardEl) {
       return M.toast(
         {
-          html: 'Please complete all fields with credit card info',
+          html: 'Please complete all fields and credit card info',
           classes: 'rounded'
         },
         3000
@@ -59,16 +58,16 @@ function _CheckoutForm(props) {
     let token;
     try {
       // processingOrder
-       setIsProcessingOrder(true);
+      setIsProcessingOrder(true);
       //create stripe token with record in stripe
-      const res = await props.stripe.createToken(); 
+      const res = await props.stripe.createToken();
       if (res.error) {
         setIsProcessingOrder(false);
-        return M.toast({ html: res.error.message, classes: 'rounded' }, 3000)
+        return M.toast({ html: res.error.message, classes: 'rounded' }, 3000);
       } else {
-         token = res.token.id
+        token = res.token.id;
       }
-   
+
       //create order in db
       await strapi.createEntry('orders', {
         amount,
@@ -79,15 +78,16 @@ function _CheckoutForm(props) {
         email,
         token
       });
+      //send email to customer 
       await strapi.request('POST', '/email', {
-          data: {
-            to: email, 
-            subject: `Order confirmation from Paul ${new Date(Date.now())}`, 
-            text: `Your order has been processed`, 
-            html: `<bold> Expect your order to arrive in 2-3 shipping days </bold> <p> You have paid ${amount} for your item </p> <p> Please keep this email as your receipt ! </p>`,
-          }
+        data: {
+          to: email,
+          subject: `Order confirmation from Paul ${new Date(Date.now())}`,
+          text: `Your order has been processed`,
+          html: `<bold> Expect your order to arrive in 2-3 shipping days </bold> <p> You have paid ${amount} for your item </p> <p> Please keep this email as your receipt ! </p>`
+        }
       });
-      setIsProcessingOrder(false)
+      setIsProcessingOrder(false);
       //show success message
       M.toast(
         { html: 'Your order submitted successfully', classes: 'rounded' },
@@ -98,12 +98,16 @@ function _CheckoutForm(props) {
       M.Modal.getInstance(confirmationmodal).close();
       //clear the cart
       setCartItems([]);
+      //dispatch the status of cart to store
+      dispatch(setCartCount([]));
+      //clear everything for local store
       clearCart();
+      //redirect to main page 
+      props.history.push('/');
     } catch (error) {
       //show error if any
       setIsProcessingOrder(false);
       M.toast({ html: error, classes: 'rounded' }, 3000);
-
     }
   };
 
@@ -211,25 +215,30 @@ function _CheckoutForm(props) {
         </div>
       </div>
     );
-} 
+  };
 
   return (
     <div className='container'>
       {renderCart()}
-      <ConfirmationModal cartItems={cartItems} handleSubmitOrder={handleSubmitOrder} isProcessingOrder={isProcessingOrder} />
+      <ConfirmationModal
+        cartItems={cartItems}
+        handleSubmitOrder={handleSubmitOrder}
+        isProcessingOrder={isProcessingOrder}
+      />
     </div>
   );
 }
 
 const CheckoutForm = injectStripe(_CheckoutForm);
 
-const Checkout = () => {
+const Checkout = props => {
   return (
     <StripeProvider apiKey={process.env.REACT_APP_STRIPE_KEY}>
       <Elements>
-        <CheckoutForm />
+        <CheckoutForm {...props} />
       </Elements>
     </StripeProvider>
   );
 };
+
 export default requireAuth(Checkout);

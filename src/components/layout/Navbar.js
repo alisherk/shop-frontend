@@ -1,37 +1,42 @@
-import React, { Component, Fragment } from 'react';
+import React, { Fragment, useEffect } from 'react';
 import { withRouter } from 'react-router-dom';
 import { getToken, clearToken, clearCart } from '../utils';
 import SignedinLinks from '../auth/SignedinLinks'; 
 import SignedoutLinks from '../auth/SignedoutLinks';
-import { connect } from 'react-redux';
-import * as actions from '../../store/actions';
+import { clearUrl } from '../../store/actions';
 import M from 'materialize-css'; 
 import SignoutMessage from '../auth/SignoutMessage';
+import { useDispatch } from 'react-redux';
 
-class Navbar extends Component {
+function Navbar(props) {
 
-  componentDidMount(){
-    const modals = document.querySelectorAll('.modal');
-    M.Modal.init(modals);
-  }
+useEffect(()=> {
+   initAuthModal(); 
+},[])
+  
+const initAuthModal = () => {
+  const authmodal = document.getElementById('authmodal'); 
+  M.Modal.init(authmodal);
+}
 
-  handleSignOut = () => {
+const dispatch = useDispatch(); 
+
+ const handleSignOut = () => {
     clearToken(); 
     clearCart(); 
-    this.props.history.push('/');
+    props.history.push('/');
     const signoutModal = document.getElementById('signoutmessage'); 
     const instance = M.Modal.init(signoutModal); 
     instance.open();
-    this.props.clearUrl();
+    dispatch(clearUrl()); 
   }
-  render() {
+ 
     return (
     <Fragment> 
-    {getToken() !== null ? <SignedinLinks handleSignOut={this.handleSignOut}/> : <SignedoutLinks />}
-    <SignoutMessage />
+      {getToken() !== null ? <SignedinLinks handleSignOut={handleSignOut}/> : <SignedoutLinks />}
+      <SignoutMessage />
     </Fragment>
-    );
-  }
+    );  
 }
 
-export default (withRouter(connect(null, actions)(Navbar)));
+export default withRouter(Navbar);

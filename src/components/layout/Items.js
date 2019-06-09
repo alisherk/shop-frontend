@@ -87,7 +87,7 @@ class Items extends Component {
           items.map(item => {
             return (
               <div className='col l5' key={item._id}>
-                <div className='card' style={{maxHeight:'100%'}}>
+                <div className='card z-depth-2' style={{maxHeight:'100%'}}>
                   <div className='card-image'>
                     <img
                       className='responsive-img'

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Strapi from 'strapi-sdk-javascript/build/main';
+import { Link } from 'react-router-dom';
 import { setToken } from '../utils';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
@@ -53,6 +54,12 @@ class Signin extends Component {
   isFormEmpty = ({ email, password }) => {
     return !email || !password;
   };
+
+  //close modal upon clickin on to reset password form
+  closeModal = () => {
+    const authmodal = document.getElementById('authmodal');
+    M.Modal.getInstance(authmodal).close();
+  }
  
   render() {
     return (
@@ -74,6 +81,9 @@ class Signin extends Component {
                 </button>
               </div>
             </form>
+            <div className='center section'> 
+                <Link to='/forgotpass' onClick={this.closeModal}> Forgot password </Link>
+            </div>
           </div>
         </div>
     );

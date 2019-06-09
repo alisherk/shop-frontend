@@ -6,7 +6,6 @@ import M from 'materialize-css';
 
 export default ChildComponent => {
   class ComposedComponent extends Component {
-
     componentDidMount() {
       this.shouldNavigateAway();
     }
@@ -23,17 +22,17 @@ export default ChildComponent => {
       let redirectUrl = this.props.location.pathname;
       if (getToken() == null) {
         instance.open();
-        this.props.storeDestUrl(redirectUrl); 
+        this.props.storeDestUrl(redirectUrl);
       }
     }
 
     render() {
-      return (
-         <ChildComponent {...this.props} />
-      ); 
+      return <ChildComponent {...this.props} />;
     }
   }
 
-
-  return connect(null, { storeDestUrl })(ComposedComponent);
+  return connect(
+    null,
+    { storeDestUrl }
+  )(ComposedComponent);
 };

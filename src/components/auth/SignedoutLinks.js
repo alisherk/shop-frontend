@@ -9,7 +9,7 @@ const SignedoutLinks = () => {
             <NavLink to='/' className='brand-logo left'>
              Paul's
               <i className='material-icons'>store</i>
-            </NavLink>
+            </NavLink> 
             <ul id='nav-mobile' className='right'>
             <li>
               <a href='#authmodal' className='modal-trigger btn-floating'> 

@@ -8,9 +8,9 @@ export const calculatePrice = arr => {
 };
 
 export const calculateAmount = arr => {
-  return Number(arr
-    .reduce((acc, item) => acc + item.quantity * item.price, 0)
-    .toFixed(2));
+  return Number(
+    arr.reduce((acc, item) => acc + item.quantity * item.price, 0).toFixed(2)
+  );
 };
 
 //persist cart data
@@ -24,32 +24,37 @@ export const getCart = (cartKey = CART_KEY) => {
   if (localStorage && localStorage.getItem(cartKey)) {
     return JSON.parse(localStorage.getItem(cartKey));
   }
-  return []; 
+  return [];
 };
 
 export const clearCart = (cartKey = CART_KEY) => {
   if (localStorage) {
     localStorage.removeItem(cartKey);
   }
-}
+};
 
 export const getToken = (tokenKey = TOKEN_KEY) => {
-  if (localStorage && localStorage.getItem(tokenKey)){
+  if (localStorage && localStorage.getItem(tokenKey)) {
     return JSON.parse(localStorage.getItem(tokenKey));
   }
   return null;
-}
+};
 
-export const setToken = (value, tokenKey = TOKEN_KEY)  => {
+export const setToken = (value, tokenKey = TOKEN_KEY) => {
   if (localStorage) {
     localStorage.setItem(tokenKey, JSON.stringify(value));
   }
-}
+};
 
 export const clearToken = (tokenKey = TOKEN_KEY) => {
-   if(localStorage){
-     localStorage.removeItem(tokenKey);
-   }
-}
+  if (localStorage) {
+    localStorage.removeItem(tokenKey);
+  }
+};
+
+export const validatePasswordStrength = password => {
+  const reg = /(?=.*[\d])(?=.*[A-Z])[A-Za-z\d]{6,}$/;
+  return reg.test(password);
+};
 
 

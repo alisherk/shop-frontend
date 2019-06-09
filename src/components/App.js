@@ -24,8 +24,9 @@ function App() {
           <Route path='/checkout' component={Checkout} />
           <Route path='/forgotpass' component={ForgotPassword} />
           <Route path='/resetpass' component={ResetPassword} /> 
-          <Route path='*' component={NotFound} /> 
           <Route path='/:id' component={Items} />
+          <Route path='*' component={NotFound} /> 
+       
         </Switch>
       </Fragment>
     </BrowserRouter>

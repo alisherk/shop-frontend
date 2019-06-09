@@ -105,8 +105,7 @@ function Brands() {
             </div>
             <div className='card-action indigo'>
               <Link to={`/${brand._id}`} className='white-text'>
-                {' '}
-                Purchase{' '}
+                Purchase
               </Link>
             </div>
           </div>

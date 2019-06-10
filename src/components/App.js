@@ -9,8 +9,8 @@ import Items from './layout/Items';
 import Brands from './layout/Brands';
 import AuthModal from './auth/AuthModal';
 import Checkout from './layout/Checkout';
-import ForgotPassword from './auth/ForgotPassword';
-import ResetPassword from './auth/ResetPassword';
+import ForgetPassword from './auth/ForgetPassword';
+import PasswordReset from './auth/PasswordReset';
 import NotFound from './layout/404';
 
 function App() {
@@ -22,8 +22,8 @@ function App() {
         <Switch>
           <Route exact path='/' component={Brands} />
           <Route path='/checkout' component={Checkout} />
-          <Route path='/forgotpass' component={ForgotPassword} />
-          <Route path='/resetpass' component={ResetPassword} /> 
+          <Route path='/forgetpassword' component={ForgetPassword} /> 
+          <Route path='/resetpassword' component={PasswordReset} /> 
           <Route path='/:id' component={Items} />
           <Route path='*' component={NotFound} /> 
        

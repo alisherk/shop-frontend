@@ -82,7 +82,7 @@ class Signin extends Component {
               </div>
             </form>
             <div className='center section'> 
-                <Link to='/forgotpass' onClick={this.closeModal}> Forgot password </Link>
+                <Link to='/forgetpassword' onClick={this.closeModal}> Forgot password </Link>
             </div>
           </div>
         </div>

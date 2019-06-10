@@ -33,9 +33,9 @@ function About() {
     const res = await strapi.request('POST', '/email', {
       data: {
         to: 'alisherkabildjanov@yahoo.com',
-        subject: `email from ${name}`,
+        subject: `Inquiry from ${name}`,
         text: `you got new email`,
-        html: `<p> ${message} </p> <p> customer can be contacted at ${email} </p>`
+        html: `<p> ${message} </p> <p> This customer can be contacted at ${email}. </p>`
       }
     });
     M.toast({ html: res, classes: 'rounded' }, 3000);
@@ -52,7 +52,7 @@ function About() {
 
       <div id='about' className='container section scrollspy'>
         <div className='row'>
-          <div className='col s12 l6'>
+          <div className='col s12 l5'>
             <h3 className='indigo-text'> About </h3>
             <p>
               We refurbish all famous brands. Our brands include Bosch, Sumsung,
@@ -63,8 +63,8 @@ function About() {
               contact us for a quote
             </p>
           </div>
-          <div className='col s12 l4 offset-l1'>
-            <h3 className='indigo-text'> Contact me </h3>
+          <div className='col s12 l5 offset-l1'>
+            <h3 className='indigo-text'> Contact us </h3>
             <form id='contact-form' onSubmit={handleSubmit}>
               <div className='input-field'>
                 <input

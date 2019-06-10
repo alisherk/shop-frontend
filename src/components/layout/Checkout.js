@@ -187,7 +187,6 @@ function _CheckoutForm(props) {
                 <div className='input-field'>
                   <CardElement
                     onChange={e => setCardEl(e.empty)}
-                    onReady={input => input.focus()}
                     style={{ base: { fontSize: '15.50px' } }}
                   />
                 </div>

@@ -35,7 +35,7 @@ function About() {
         to: 'alisherkabildjanov@yahoo.com',
         subject: `Inquiry from ${name}`,
         text: `you got new email`,
-        html: `<p> ${message} </p> <p> This customer can be contacted at ${email}. </p>`
+        html: `<p> ${message} </p> <hr> <p> This customer can be contacted at ${email}. </p>`
       }
     });
     M.toast({ html: res, classes: 'rounded' }, 3000);

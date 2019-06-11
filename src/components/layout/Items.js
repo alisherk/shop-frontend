@@ -91,7 +91,7 @@ class Items extends Component {
                   <div className='card-image'>
                     <img
                       className='responsive-img'
-                      src={`${apiUrl}${item.image.url}`}
+                      src={item.image.url}
                       alt=''
                     />
                     <button
@@ -130,7 +130,7 @@ class Items extends Component {
         {cartItems.map(item => {
           return (
             <ul className='collection' key={item._id}> 
-            <li className='collection-item white-text red' style={{fontSize:'14px'}}>
+            <li className='collection-item white-text red' style={{fontSize:'12px'}}>
               {item.name} - {item.quantity} x ${(item.quantity * item.price).toFixed(2)}
               <span onClick={() => this.deleteItemFromCart(item._id)} className='secondary-content' style={{cursor:'pointer'}}> 
                 <i className='material-icons white-text'> close </i>
@@ -156,7 +156,7 @@ class Items extends Component {
           {/* Shopping Cart rendered with a helper function above */}
           <div className='col s12 l4'>
             <div
-              className='card blue-grey darken-1 custom-mobile'
+              className='card blue-grey darken-1'
               style={{ marginTop: '6vw' }}
             >
               <div className='card-content white-text'>

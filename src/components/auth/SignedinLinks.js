@@ -11,7 +11,7 @@ const SignedinLinks = ({ handleSignOut }) => {
         <span
           style={{
             position: 'relative',
-            margin: '18px auto',
+            margin: '15px auto',
             fontSize: '15px'
           }}
           className='badge red white-text new'

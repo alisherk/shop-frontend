@@ -89,7 +89,7 @@ function Brands() {
               <img
                 className='responsive-img'
                 style={{ width: '70%' }}
-                src={`${apiUrl}${brand.image.url}`}
+                src={brand.image.url}
                 alt=''
               />
               <span

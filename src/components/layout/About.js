@@ -67,31 +67,32 @@ function About() {
             <h3 className='indigo-text'> Contact us </h3>
             <form id='contact-form' onSubmit={handleSubmit}>
               <div className='input-field'>
+              <i className='material-icons prefix'>account_circle</i>
                 <input
                   type='text'
                   id='name'
                   onChange={e => setName(e.target.value)}
                 />
                 <label htmlFor='name'>Name</label>
-                <i className='material-icons prefix'>account_circle</i>
+              
               </div>
               <div className='input-field'>
+              <i className='material-icons prefix'>email</i>
                 <input
                   type='email'
                   id='contactemail'
                   onChange={e => setEmail(e.target.value)}
                 />
                 <label htmlFor='email'>Email</label>
-                <i className='material-icons prefix'>email</i>
               </div>
               <div className='input-field'>
+              <i className='material-icons prefix'>message</i>
                 <input
                   type='text'
                   id='message'
                   onChange={e => setMessage(e.target.value)}
                 />
                 <label htmlFor='message'>Message</label>
-                <i className='material-icons prefix'>message</i>
               </div>
               <div id='customer-choice' className='input-field'>
                 <ul>

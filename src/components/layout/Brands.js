@@ -118,10 +118,10 @@ function Brands() {
     <Fragment>
       <div className='container'>
         <div className='row section'>
-          <div className='col s12 m5 l6'>
+          <div className='col s12 m6 l6'>
             <div className='valign-wrapper'>
-             <a href='#about' className='btn-floating' style={{margin:'10px'}}>
-                 About 
+             <a href='#about' className='btn-floating lighten-1' style={{margin:'10px'}}>
+                 <i className='material-icons' style={{pointerEvents:'none'}}> arrow_downward </i>
               </a>
               <h3 className='indigo-text center'>Our brands </h3>
            </div>

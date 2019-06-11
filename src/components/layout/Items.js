@@ -130,7 +130,7 @@ class Items extends Component {
         {cartItems.map(item => {
           return (
             <ul className='collection' key={item._id}> 
-            <li className='collection-item white-text red' style={{fontSize:'12px'}}>
+            <li className='collection-item white-text red' style={{fontSize:'15px'}}>
               {item.name} - {item.quantity} x ${(item.quantity * item.price).toFixed(2)}
               <span onClick={() => this.deleteItemFromCart(item._id)} className='secondary-content' style={{cursor:'pointer'}}> 
                 <i className='material-icons white-text'> close </i>

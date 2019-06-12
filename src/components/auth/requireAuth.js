@@ -15,7 +15,7 @@ export default ChildComponent => {
     }
 
     shouldNavigateAway() {
-      const authmodal = document.getElementById('authmodal');
+ /*      const authmodal = document.getElementById('authmodal');
       const instance = M.Modal.init(authmodal, {
         dismissible: false
       });
@@ -23,7 +23,7 @@ export default ChildComponent => {
       if (getToken() == null) {
         instance.open();
         this.props.storeDestUrl(redirectUrl);
-      }
+      } */
     }
 
     render() {

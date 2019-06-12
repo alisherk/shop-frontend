@@ -21,9 +21,9 @@
 }
 
 /*adjust the height of order confirmation modal */
-#confirmationmodal.modal {
+#confirm-modal.modal {
   width: 60% !important;
-  height: 50% !important;
+  height: 60% !important;
 }
 
 /* adjust spans next to checkboxes in the About component */

@@ -1,5 +1,6 @@
-const CART_KEY = 'cart';
+const CART_KEY = 'art';
 const TOKEN_KEY = 'jwt';
+const STATE_KEY = 'state';
 
 export const calculatePrice = arr => {
   return `$${arr
@@ -8,9 +9,7 @@ export const calculatePrice = arr => {
 };
 
 export const calculateAmount = arr => {
-  return Number(
-    arr.reduce((acc, item) => acc + item.quantity * item.price, 0).toFixed(2)
-  );
+  return Number(arr.reduce((acc, item) => acc + item.quantity * item.price, 0).toFixed(2));
 };
 
 //persist cart data
@@ -51,6 +50,25 @@ export const clearToken = (tokenKey = TOKEN_KEY) => {
     localStorage.removeItem(tokenKey);
   }
 };
+
+export const storeState = (value, tokenKey = STATE_KEY) => {
+  if (localStorage) {
+    localStorage.setItem(tokenKey, JSON.stringify(value)); 
+  }
+}
+
+export const getState = (tokenKey = STATE_KEY ) => {
+  if (localStorage && localStorage.getItem(tokenKey)) {
+    return JSON.parse(localStorage.getItem(tokenKey));
+  }
+  return null;
+}
+
+export const clearState = (tokenKey = STATE_KEY) => {
+  if (localStorage) {
+    localStorage.removeItem(tokenKey); 
+  }
+}
 
 export const validatePasswordStrength = password => {
   const reg = /(?=.*[\d])(?=.*[A-Z])[A-Za-z\d]{6,}$/;

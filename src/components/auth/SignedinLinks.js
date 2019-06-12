@@ -5,20 +5,23 @@ import { useSelector } from 'react-redux';
 const SignedinLinks = ({ handleSignOut }) => {
   const cart = useSelector(state => state.cart);
 
-  function renderCartCount() {
-    if (cart > 0)
-      return (
-        <span
-          style={{
-            position: 'relative',
-            margin: '15px auto',
-            fontSize: '15px'
-          }}
-          className='badge red white-text new'
-        >
-          {cart}
-        </span>
-      );
+    function renderCartCount() {
+      if (cart && cart.length !== 0) {
+        return (
+          <span
+            style={{
+              position: 'relative',
+              margin: '15px auto',
+              fontSize: '15px'
+            }}
+            className='badge red white-text new'
+          >
+            {cart.length}
+          </span>
+        );
+      } else {
+        return null;
+      }
   }
 
   return (

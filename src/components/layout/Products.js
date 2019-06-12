@@ -1,24 +1,29 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import Strapi from 'strapi-sdk-javascript/build/main';
 import { NavLink } from 'react-router-dom';
 import { calculatePrice, setCart, getCart } from '../utils/index';
-import { connect } from 'react-redux';
-import * as actions from '../../store/actions';
+import { setCartCount } from '../../store/actions';
+import Loader from './Loader'; 
 
 //get server uri from env variables and init a new strapi object
 const apiUrl = process.env.REACT_APP_API_URL;
 const strapi = new Strapi(apiUrl);
 
-class Items extends Component {
-  
-  state = {
-    items: null,
-    brand: null,
-    cartItems: []
-  };
+function Products(props) {
 
-  async componentDidMount() {
-    let id = this.props.match.params.id;
+  const [items, setItems ] = useState(null);
+  const [brand, setBrands] = useState(null);
+  const [cartItems, setCartItems] = useState([]);
+  const dispatch = useDispatch(); 
+
+  useEffect(() => {
+      fetchDate();
+  }, []);
+  
+
+  const fetchDate = async () => {
+   let id = props.match.params.id;
     try {
       const { data } = await strapi.request('POST', '/graphql', {
         data: {
@@ -39,46 +44,35 @@ class Items extends Component {
               } `
         }
       });
-      this.setState({
-        items: data.brand.items,
-        brand: data.brand.name, 
-        cartItems: getCart()
-      });
+      setItems(data.brand.items); 
+      setBrands(data.brand.name); 
+      setCartItems(getCart()); 
+
     } catch (err) {
-      console.error(err);
+      console.log(err.message);
     }
   }
   
-  addToCart = item => {
-    const alreadyInCart = this.state.cartItems.findIndex(
-      cartItem => cartItem._id === item._id
-    );
+ const addToCart = item => {
+    const alreadyInCart = cartItems.findIndex(cartItem => cartItem._id === item._id);
     if (alreadyInCart === -1) {
-      const updatedItems = this.state.cartItems.concat({
-        ...item,
-        quantity: 1
-      });
-      this.setState({ cartItems: updatedItems }, () => setCart(updatedItems));
-      this.props.setCartCount(updatedItems); 
+      const updatedItems = cartItems.concat({ ...item, quantity: 1 });
+      setCartItems(updatedItems); 
+      setCart(updatedItems); 
+      dispatch(setCartCount(updatedItems)); 
+
     } else {
-      const updatedItems = [...this.state.cartItems];
+      const updatedItems = [...cartItems];
       updatedItems[alreadyInCart].quantity += 1;
-      this.setState({ cartItems: updatedItems }, () => setCart(updatedItems));
-      this.props.setCartCount(updatedItems); 
+      setCartItems(updatedItems);
+      setCart(updatedItems);
+      dispatch(setCartCount(updatedItems)); 
     }
   };
 
-  renderProducts() {
-    const { items, brand } = this.state;
+ const renderProducts = () => {
     if (!items || !brand) {
-      return (
-        <div
-          className='progress col s12 l6 offset-l3'
-          style={{ marginTop: '7vw' }}
-        >
-          <div className='indeterminate' />
-        </div>
-      );
+      return <Loader top={'7vw'} />  
     }
     return (
       <div>
@@ -94,8 +88,7 @@ class Items extends Component {
                       src={item.image.url}
                       alt=''
                     />
-                    <button
-                      onClick={() => this.addToCart(item)}
+                    <button onClick={() => addToCart(item)}
                       className='btn-floating halfway-fab red pulse'
                     >
                       <i className='material-icons'>add</i>
@@ -114,14 +107,14 @@ class Items extends Component {
     );
   }
 
-  deleteItemFromCart = itemToDeleteId => {
-    const deletedItems = this.state.cartItems.filter(item => item._id !== itemToDeleteId); 
-    this.setState({ cartItems: deletedItems }, () => setCart(deletedItems)); 
-    this.props.setCartCount(deletedItems);
+  const deleteItemFromCart = itemToDeleteId => {
+    const deletedItems = cartItems.filter(item => item._id !== itemToDeleteId); 
+    setCartItems(deletedItems); 
+    setCart(deletedItems);
+    dispatch(setCartCount(deletedItems)); 
   }
 
-  renderCartItems() {
-    const { cartItems } = this.state;
+ const renderCartItems = () => {
     return (
       <div>
         <span className='card-title center'>Your cart</span>
@@ -132,7 +125,7 @@ class Items extends Component {
             <ul className='collection' key={item._id}> 
             <li className='collection-item white-text red' style={{fontSize:'15px'}}>
               {item.name} - {item.quantity} x ${(item.quantity * item.price).toFixed(2)}
-              <span onClick={() => this.deleteItemFromCart(item._id)} className='secondary-content' style={{cursor:'pointer'}}> 
+              <span onClick={() => deleteItemFromCart(item._id)} className='secondary-content' style={{cursor:'pointer'}}> 
                 <i className='material-icons white-text'> close </i>
               </span>
             </li>
@@ -144,14 +137,12 @@ class Items extends Component {
       </div>
     );
   }
-
-  render() {
     return (
       <div className='container'>
         <div className='row' style={{display:'flex', flexWrap:'wrap-reverse'}}>
 
          {/*  {Products desplayed with a helper function above } */}
-          <div className='col s12 l8'>{this.renderProducts()}</div>
+          <div className='col s12 l8'>{renderProducts()}</div>
 
           {/* Shopping Cart rendered with a helper function above */}
           <div className='col s12 l4'>
@@ -161,7 +152,7 @@ class Items extends Component {
             >
               <div className='card-content white-text'>
 
-                {this.renderCartItems()}
+                {renderCartItems()}
 
                 <div className='section center'>
                   <NavLink to='/checkout' className='orange-text'>
@@ -174,7 +165,7 @@ class Items extends Component {
         </div>
       </div>
     );
-  }
+  
 }
 
-export default connect(null, actions)(Items);
+export default Products;

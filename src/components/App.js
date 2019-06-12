@@ -5,7 +5,7 @@ import 'materialize-css/dist/css/materialize.min.css';
 
 //Components
 import Navbar from './layout/Navbar';
-import Items from './layout/Items';
+import Products from './layout/Products';
 import Brands from './layout/Brands';
 import AuthModal from './auth/AuthModal';
 import Checkout from './layout/Checkout';
@@ -24,9 +24,8 @@ function App() {
           <Route path='/checkout' component={Checkout} />
           <Route path='/forgetpassword' component={ForgetPassword} /> 
           <Route path='/resetpassword' component={PasswordReset} /> 
-          <Route path='/:id' component={Items} />
-          <Route path='*' component={NotFound} /> 
-       
+          <Route path='/products/:id' component={Products} />
+          <Route path='*' component={NotFound} />
         </Switch>
       </Fragment>
     </BrowserRouter>

@@ -4,7 +4,7 @@ import { Elements, StripeProvider, CardElement, injectStripe} from 'react-stripe
 import requireAuth from '../auth/requireAuth';
 import Strapi from 'strapi-sdk-javascript/build/main';
 import M from 'materialize-css';
-import ConfirmationModal from './ConfirmationModal';
+import ConfirmModal from '../modals/ConfirmModal';
 import { useDispatch } from 'react-redux';
 import { setCartCount } from '../../store/actions';
 
@@ -40,8 +40,8 @@ function _CheckoutForm(props) {
         3000
       );
     }
-    const confirmationmodal = document.getElementById('confirmationmodal');
-    M.Modal.init(confirmationmodal).open();
+    const confirmodal = document.getElementById('confirm-modal');
+    M.Modal.init(confirmodal).open(); 
   };
 
   const deleteItemFromCart = itemToDeleteId => {
@@ -94,8 +94,8 @@ function _CheckoutForm(props) {
         5000
       );
       //close modal
-      const confirmationmodal = document.getElementById('confirmationmodal');
-      M.Modal.getInstance(confirmationmodal).close();
+      const confirmodal = document.getElementById('confirm-modal');
+      M.Modal.getInstance(confirmodal).close(); 
       //clear the cart
       setCartItems([]);
       //dispatch the status of cart to store
@@ -107,7 +107,7 @@ function _CheckoutForm(props) {
     } catch (error) {
       //show error if any
       setIsProcessingOrder(false);
-      M.toast({ html: error, classes: 'rounded' }, 3000);
+      M.toast({ html: error.message, classes: 'rounded' }, 3000);
     }
   };
 
@@ -219,11 +219,11 @@ function _CheckoutForm(props) {
   return (
     <div className='container'>
       {renderCart()}
-      <ConfirmationModal
+        <ConfirmModal
         cartItems={cartItems}
         handleSubmitOrder={handleSubmitOrder}
         isProcessingOrder={isProcessingOrder}
-      />
+         /> 
     </div>
   );
 }

@@ -104,7 +104,7 @@ function Brands() {
               {brand.description}
             </div>
             <div className='card-action indigo'>
-              <Link to={`/${brand._id}`} className='white-text'>
+              <Link to={`products/${brand._id}`} className='white-text'>
                 Purchase
               </Link>
             </div>

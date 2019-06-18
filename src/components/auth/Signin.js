@@ -3,7 +3,6 @@ import Strapi from 'strapi-sdk-javascript/build/main';
 import { Link } from 'react-router-dom';
 import { setToken } from '../utils';
 import { withRouter } from 'react-router-dom';
-import { connect } from 'react-redux';
 import M from 'materialize-css';
 
 //initializing strapi
@@ -40,8 +39,7 @@ class Signin extends Component {
       //put token to manage user session
       setToken(res.jwt);
       //redirect message to home page
-      let redirect = this.props.redirectUrl || '/';
-      this.redirectUser(redirect);
+      this.redirectUser('/checkout');
       //close modal 
       instance.close();
     } catch (err) {
@@ -90,10 +88,4 @@ class Signin extends Component {
   }
 }
 
-function mapStateToProps({ redirectUrl }){
-  return {
-    redirectUrl: redirectUrl.url
-  }
-}
-
-export default connect(mapStateToProps)(withRouter(Signin));
+export default withRouter(Signin);

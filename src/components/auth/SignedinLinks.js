@@ -14,7 +14,7 @@ const SignedinLinks = ({ handleSignOut }) => {
               margin: '15px auto',
               fontSize: '15px'
             }}
-            className='badge red white-text new'
+            className='badge white-text new'
           >
             {cart.length}
           </span>
@@ -36,11 +36,11 @@ const SignedinLinks = ({ handleSignOut }) => {
           <ul id='nav-mobile' className='right'>
             <li>
               {/*eslint-disable-next-line*/}
-              <a className='btn-floating' onClick={handleSignOut}>
+              <a className='btn-floating red' onClick={handleSignOut}>
                 <i className='material-icons'> exit_to_app </i>
               </a>
             </li>
-            <NavLink className='btn-floating' to='/checkout'>
+            <NavLink className='btn-floating red' to='/checkout'>
               <i className='material-icons'>shopping_cart </i>
             </NavLink>
             {renderCartCount()}

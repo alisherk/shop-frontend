@@ -9,11 +9,7 @@ const SignedoutLinks = () => {
     if (cart && cart.length !== 0) {
       return (
         <span
-          style={{
-            position: 'relative',
-            margin: '15px auto',
-            fontSize: '15px'
-          }}
+          style={{ position: 'relative', margin: '15px auto', fontSize: '15px'}}
           className='badge red white-text new'
         >
           {cart.length}
@@ -38,6 +34,9 @@ const SignedoutLinks = () => {
                 <i className='material-icons'> vpn_key </i>
               </a>
             </li>
+            <NavLink className='btn-floating' to='/checkout'>
+              <i className='material-icons'>shopping_cart </i>
+            </NavLink>
             {renderCartCount()}
           </ul>
         </div>

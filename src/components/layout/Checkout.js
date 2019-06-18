@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { getCart, setCart, calculatePrice, clearCart, calculateAmount} from '../utils/index';
+import { getCart, setCart, calculatePrice, clearCart, calculateAmount, getToken} from '../utils/index';
 import { Elements, StripeProvider, CardElement, injectStripe} from 'react-stripe-elements';
-import requireAuth from '../auth/requireAuth';
 import Strapi from 'strapi-sdk-javascript/build/main';
 import M from 'materialize-css';
 import ConfirmModal from '../modals/ConfirmModal';
+import AuthModal from '../modals/AuthModal';
 import { useDispatch } from 'react-redux';
 import { setCartCount } from '../../store/actions';
+import { Link } from 'react-router-dom';
 
 //get server uri from env variables and init a new strapi object
 const apiUrl = process.env.REACT_APP_API_URL;
@@ -31,6 +32,10 @@ function _CheckoutForm(props) {
 
   const handleConfirmOrder = e => {
     e.preventDefault();
+    if(getToken() === null) {
+      const authmodal = document.getElementById('authmodal');
+      return M.Modal.init(authmodal).open(); 
+    }
     if (!address || !postalCode || !city || !email || cardEl) {
       return M.toast(
         {
@@ -52,7 +57,7 @@ function _CheckoutForm(props) {
   };
 
   const handleSubmitOrder = async () => {
-    //calculate amount to send to stripe as number
+    //calculate amount to send to stripe 
     const amount = calculateAmount(cartItems);
     //process order
     let token;
@@ -208,7 +213,8 @@ function _CheckoutForm(props) {
         <div className='col s12 l8 offset-l2'>
           <div className='card'>
             <div className='card-content center'>
-              <h5> You have no items in you cart </h5>
+              <h5> You have no items in you cart right </h5>
+              <Link to='/'> Continue to your shopping experience </Link>
             </div>
           </div>
         </div>
@@ -219,6 +225,7 @@ function _CheckoutForm(props) {
   return (
     <div className='container'>
       {renderCart()}
+        <AuthModal />
         <ConfirmModal
         cartItems={cartItems}
         handleSubmitOrder={handleSubmitOrder}
@@ -240,4 +247,4 @@ const Checkout = props => {
   );
 };
 
-export default requireAuth(Checkout);
+export default Checkout;

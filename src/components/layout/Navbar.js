@@ -3,10 +3,10 @@ import { withRouter } from 'react-router-dom';
 import { getToken, clearToken, clearCart } from '../utils';
 import SignedinLinks from '../auth/SignedinLinks'; 
 import SignedoutLinks from '../auth/SignedoutLinks';
-import { clearUrl } from '../../store/actions';
-import M from 'materialize-css'; 
-import SignoutMessage from '../auth/SignoutMessage';
+import { clearCartCount } from '../../store/actions';
+import SignoutMessage from '../modals/SignoutMessage';
 import { useDispatch } from 'react-redux';
+import M from 'materialize-css'; 
 
 function Navbar(props) {
 
@@ -26,9 +26,8 @@ const dispatch = useDispatch();
     clearCart(); 
     props.history.push('/');
     const signoutModal = document.getElementById('signoutmessage'); 
-    const instance = M.Modal.init(signoutModal); 
-    instance.open();
-    dispatch(clearUrl()); 
+    M.Modal.init(signoutModal).open(); 
+    dispatch(clearCartCount()); 
   }
  
     return (

@@ -6,6 +6,7 @@ import M from 'materialize-css';
 
 export default ChildComponent => {
   class ComposedComponent extends Component {
+    
     componentDidMount() {
       this.shouldNavigateAway();
     }
@@ -15,7 +16,7 @@ export default ChildComponent => {
     }
 
     shouldNavigateAway() {
- /*      const authmodal = document.getElementById('authmodal');
+      const authmodal = document.getElementById('authmodal');
       const instance = M.Modal.init(authmodal, {
         dismissible: false
       });
@@ -23,7 +24,7 @@ export default ChildComponent => {
       if (getToken() == null) {
         instance.open();
         this.props.storeDestUrl(redirectUrl);
-      } */
+      }
     }
 
     render() {
@@ -31,8 +32,6 @@ export default ChildComponent => {
     }
   }
 
-  return connect(
-    null,
-    { storeDestUrl }
-  )(ComposedComponent);
+  return connect(null,{ storeDestUrl } )(ComposedComponent);
+
 };

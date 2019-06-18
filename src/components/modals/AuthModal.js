@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import Register from './Register';
-import Signin from './Signin';
+import Register from '../auth/Register';
+import Signin from '../auth/Signin';
 import M from 'materialize-css';
 
 class AuthModal extends Component {

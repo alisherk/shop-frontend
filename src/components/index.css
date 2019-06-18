@@ -35,4 +35,7 @@
    margin: 6px 10px;
 }
 
-
+/*this css fixes a bug where materialize label does not move up on click */
+.input-field label{
+  pointer-events: all !important;
+}

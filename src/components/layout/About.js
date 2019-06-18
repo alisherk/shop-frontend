@@ -77,13 +77,13 @@ function About() {
               
               </div>
               <div className='input-field'>
-              <i className='material-icons prefix'>email</i>
+              <i className='material-icons prefix'>email</i> 
                 <input
                   type='email'
                   id='contactemail'
                   onChange={e => setEmail(e.target.value)}
                 />
-                <label htmlFor='email'>Email</label>
+                <label htmlFor='contactemail'>Email</label>
               </div>
               <div className='input-field'>
               <i className='material-icons prefix'>message</i>
